@@ -11,7 +11,7 @@ function Header() {
   return (
     <header className="sticky bg-[#040714] top-0 z-[1000] flex items-center px-10 md:px-12 h-[72px] justify-between">
 
-      <h1 className="cursor-pointer font-extrabold text-2xl " onClick={() => router.push("/")}>MOOVIE</h1>
+      <h1 className="cursor-pointer font-extrabold text-2xl pr-8 " onClick={() => router.push("/")}>MOOVIE</h1>
 
       {session && (
       <div className="hidden md:flex items-center space-x-6">
