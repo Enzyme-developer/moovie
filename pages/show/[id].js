@@ -1,4 +1,4 @@
-// import { getSession, useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -8,31 +8,38 @@ import Hero from "../../components/Hero";
 import { PlusIcon, XIcon } from "@heroicons/react/solid";
 import ReactPlayer from "react-player/lazy";
 
-function Show({ result }) {
-//   const [session] = useSession();
+const Show = ({ result }) => {
+  const {data: session} = useSession();
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
   const router = useRouter();
   const [showPlayer, setShowPlayer] = useState(false);
 
-//   useEffect(() => {
-//     if (!session) {
-//       router.push("/");
-//     }
-//   }, []);
+
+  //protect route
+  useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  }, []);
+
 
   const index = result.videos.results.findIndex(
-    (element) => element.type === "Trailer"
+    (element) => {
+      element.type === "Trailer"
+    }
   );
 
   return (
     <div className="relative">
+
       <Head>
         <title>{result.title || result.original_name}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
 
-        <section className="relative z-50">
+      <Header />
+      {!session ? (<Hero />) :
+        (<section className="relative z-50">
           <div className="relative min-h-screen">
             <Image
               src={
@@ -71,6 +78,7 @@ function Show({ result }) {
                   className="h-6 md:h-8"
                 />
                 <span className="uppercase font-medium tracking-wide">Trailer</span>
+
               </button>
 
               <div className="rounded-full border-2 border-white flex items-center justify-center w-11 h-11 cursor-pointer bg-black/60">
@@ -94,6 +102,8 @@ function Show({ result }) {
             
           </div>
 
+
+          
           {/* Bg Overlay */}
           {showPlayer && (
             <div className="absolute inset-0 bg-black opacity-50 h-full w-full z-50"></div>
@@ -112,7 +122,7 @@ function Show({ result }) {
                 onClick={() => setShowPlayer(false)}
               >
                 <XIcon className="h-5" />
-                      </div>
+              </div>
                       
             </div>
                   
@@ -128,8 +138,7 @@ function Show({ result }) {
             </div>
             
           </div>
-        </section>
-
+        </section>)}
     </div>
   );
 }
@@ -137,7 +146,7 @@ function Show({ result }) {
 export default Show;
 
 export async function getServerSideProps(context) {
-//   const session = await getSession(context);
+  // const session = await getSession(context);
   const { id } = context.query;
 
   const request = await fetch(
