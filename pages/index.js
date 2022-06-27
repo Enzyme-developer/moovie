@@ -7,12 +7,8 @@ import Hero from "../components/Hero";
 import Slider from "../components/Slider";
 import ShowsCollection from "../components/ShowsCollection";
 
-export default function Home({
-  popularMovies,
-  popularShows,
-  top_ratedMovies,
-  top_ratedShows,
-}) {
+export default function Home({ popularMovies, popularShows, top_ratedMovies, top_ratedShows,}) {
+
   const {data: session} = useSession();
 
   return (
@@ -24,7 +20,9 @@ export default function Home({
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <Header />
+
       {!session ? (
         <Hero />
       ) : (
@@ -34,10 +32,7 @@ export default function Home({
           <MoviesCollection results={popularMovies} title="Popular Movies" />
           <ShowsCollection results={popularShows} title="Popular Shows" />
 
-          <MoviesCollection
-            results={top_ratedMovies}
-            title="Top Rated Movies"
-          />
+          <MoviesCollection results={top_ratedMovies} title="Top Rated Movies" />
           <ShowsCollection results={top_ratedShows} title="Top Rated Shows" />
         </main>
       )}
@@ -48,12 +43,8 @@ export default function Home({
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
-  const [
-    popularMoviesRes,
-    popularShowsRes,
-    top_ratedMoviesRes,
-    top_ratedShowsRes,
-  ] = await Promise.all([
+  const [popularMoviesRes, popularShowsRes, top_ratedMoviesRes, top_ratedShowsRes,] = await Promise.all([
+    
     fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
     ),
@@ -66,7 +57,9 @@ export async function getServerSideProps(context) {
     fetch(
       `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`
     ),
+
   ]);
+  
   const [popularMovies, popularShows, top_ratedMovies, top_ratedShows] =
     await Promise.all([
       popularMoviesRes.json(),
