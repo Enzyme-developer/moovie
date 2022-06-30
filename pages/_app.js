@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps, session }) {
   return (
     <SessionProvider session={session}>
       <NextNProgress />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </SessionProvider>
   )
 }

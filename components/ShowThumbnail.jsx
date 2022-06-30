@@ -18,8 +18,11 @@ function ShowThumbnail({ result }) {
         objectFit="cover"
         className="rounded-lg"
       />
-        <h1 className="font-bold text-center">{result.name}</h1>
-        <p className="font-medium text-center">{result.vote_average}</p>
+
+      <h1 className="font-bold text-center">{result.name}</h1>
+      
+      <p className="font-medium text-center">{result.vote_average}</p>
+      
     </div>
   );
 }

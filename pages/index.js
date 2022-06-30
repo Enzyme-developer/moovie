@@ -8,11 +8,12 @@ import Slider from "../components/Slider";
 import ShowsCollection from "../components/ShowsCollection";
 
 export default function Home({ popularMovies, popularShows, top_ratedMovies, top_ratedShows }) {
-  console.log(popularShows)
+  // console.log(popularShows)
   const {data: session} = useSession();
 
   return (
     <div>
+
       <Head>
         <title>Moovie</title>
         <link rel="icon" href="/favicon.ico" />
@@ -34,7 +35,7 @@ export default function Home({ popularMovies, popularShows, top_ratedMovies, top
         </main>
       )}
     </div>
-  );
+  )
 }
 
 export async function getServerSideProps(context) {
@@ -42,36 +43,20 @@ export async function getServerSideProps(context) {
 
   const [popularMoviesRes, popularShowsRes, top_ratedMoviesRes, top_ratedShowsRes] = await Promise.all([
     
-    fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
-    ),
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`),
 
 
-    fetch(
-      `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`, {
-      method: 'GET',
-      mode: 'cors',
-      headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Methods' : 'GET',
-      'Access-Control-Allow-Headers' : 'application/json',
-      'Access-Control-Allow-Credentials' : 'true',
-    }, 
-  }
-    ),
+    fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`),
 
 
-    fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`
-    ),
-    fetch(
-      `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`
-    ),
+    fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`),
+
+
+    fetch(`https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`),
 
   ]);
   
-  const [popularMovies, popularShows, top_ratedMovies, top_ratedShows, latest] =
+  const [popularMovies, popularShows, top_ratedMovies, top_ratedShows] =
     await Promise.all([
       popularMoviesRes.json(),
       popularShowsRes.json(),
@@ -88,5 +73,5 @@ export async function getServerSideProps(context) {
       top_ratedMovies: top_ratedMovies.results,
       top_ratedShows: top_ratedShows.results,
     },
-  };
+  }
 }

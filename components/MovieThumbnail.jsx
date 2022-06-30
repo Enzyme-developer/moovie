@@ -8,7 +8,7 @@ function MovieThumbnail({ result }) {
 
   return (
     <div
-      className="relative items-center flex flex-col min-w-[250px] min-h-[170px] max-h-[250px] md:min-w-[330px] md:min-h-[210px] rounded-lg overflow-hidden shadow-xl cursor-pointer border-[3px] border-[#f9f9f9] border-opacity-10  hover:border-opacity-80 hover:shadow-2xl transform hover:scale-105 transition duration-300"
+      className="relative items-center flex flex-col min-w-[250px] min-h-[170px] max-h-[250px] md:min-w-[330px] md:min-h-[210px] rounded-lg overflow-hidden shadow-xl cursor-pointer border-[3px] border-[#f9f9f9] border-opacity-10  hover:border-opacity-80 hover:shadow-2xl transform hover:scale-110 transition duration-300"
       onClick={() => router.push(`/movie/${result.id}`)}
     >
       <Image
@@ -18,8 +18,11 @@ function MovieThumbnail({ result }) {
         objectFit="cover"
         className="rounded-lg"
       />
+
       <h1 className="font-bold text-center">{result.original_title}</h1>
+
       <p className="font-medium text-center">{result.vote_average}</p>
+
     </div>
   );
 }

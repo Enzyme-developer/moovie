@@ -9,7 +9,7 @@ function Header() {
   const router = useRouter();
 
   return (
-    <header className="sticky bg-[#040714] top-0 z-[1000] w-[100%]  flex items-center px-10 md:px-12 h-[72px] justify-between">
+    <header className="sticky bg-[#040714] top-0 z-[100] w-[100%]  flex items-center px-8 md:px-12 h-[72px] justify-between">
 
       <h1 className="cursor-pointer font-extrabold text-2xl " onClick={() => router.push("/")}>MOOVIE</h1>
       
@@ -54,20 +54,18 @@ function Header() {
 
       <button
         onClick={signIn}
-        className="uppercase border px-4 py-1.5 text-white rounded font-medium hover:bg-white hover:text-black transition duration-200"
+        className="uppercase border px-4 py-1.5 text-white rounded font-medium hover:bg-white hover:text-black transition duration-250"
       >
         Login
       </button>
       
       ) :
         
-        (
-
-      <div className='ml-auto cursor-pointer flex'>
+      (<div className='ml-auto cursor-pointer flex'>
 
         <img
           src={session.user.image}
-          className="ml-auto h-12 w-12 rounded-full object-cover cursor-pointer"
+          className="ml-auto h-10 w-10 rounded-full object-cover cursor-pointer"
           onClick={signOut}
         />
       </div>
