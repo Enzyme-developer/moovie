@@ -21,18 +21,23 @@ function Movie({ result }) {
     }
   }, []);
 
+
+  //find the index of an element of type trailer
   const index = result.videos.results.findIndex(
     (element) => element.type === "Trailer"
   );
+
 
   console.log(result)
 
   return (
 <div className="relative">
+  
   <Head>
     <title>{result.title || result.original_name}</title>
     <link rel="icon" href="/favicon.ico" />
   </Head>
+      
   <Header />
   {!session ? (<Hero />) : (
     <section className="relative z-50">
@@ -94,18 +99,18 @@ function Movie({ result }) {
         <h4 className="text-sm md:text-lg max-w-4xl">{result.overview}</h4>
       </div>
 
-      {/* Bg Overlay */}
+      {/* Background Overlay */}
       {showPlayer && (
         <div className="absolute inset-0 bg-black opacity-50 h-full w-full z-50"></div>
       )}
 
       <div
-        className={`absolute top-3 inset-x-[7%] md:inset-x-[13%] rounded overflow-hidden transition duration-1000 ${
+        className={`absolute top-3 inset-x-[5%] md:inset-x-[10%] rounded overflow-hidden transition duration-1000 ${
           showPlayer ? "opacity-100 z-50" : "opacity-0"
         }`}
       >
         <div className="flex items-center justify-between bg-black text-[#f9f9f9] p-3.5">
-                  <span className="font-semibold">Play Trailer</span>
+          <span className="font-semibold">Play Trailer</span>
                   
           <div
             className="cursor-pointer w-8 h-8 flex justify-center items-center rounded-lg opacity-50 hover:opacity-75 hover:bg-[#0F0F0F]"
@@ -115,6 +120,7 @@ function Movie({ result }) {
           </div>
           
         </div>
+        
         <div className="relative pt-[56.25%]">
           <ReactPlayer
             url={`https://www.youtube.com/watch?v=${result.videos?.results[index]?.key}`}
@@ -125,6 +131,7 @@ function Movie({ result }) {
             playing={showPlayer}
           />
         </div>
+        
       </div>
     </section>
   )}

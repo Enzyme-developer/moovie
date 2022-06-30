@@ -34,7 +34,6 @@ return (
   <Header />
   {!session ? (<Hero />) : (
     <section className="relative z-10">
-      
       <div className="relative min-h-[100vh]" >
         <Image
           src={`${BASE_URL}${result.backdrop_path || result.poster_path}` || `${BASE_URL}${result.poster_path}`}
